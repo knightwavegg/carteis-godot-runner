@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c17dt3c1nfe5v"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_f3yaf"]
+[ext_resource type="Script" path="res://spawner.gd" id="2_qx22t"]
+[ext_resource type="Texture2D" uid="uid://b37aiwbgg8dc5" path="res://icon.svg" id="3_rw8bt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3sy4"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uybuo"]
+size = Vector2(1168, 24)
+
+[node name="game" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(112, 528)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_f3yaf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("3_rw8bt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_w3sy4")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(1152, 608)
+script = ExtResource("2_qx22t")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(576, 648)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0, 3.99998)
+scale = Vector2(9.125, 0.187499)
+texture = ExtResource("3_rw8bt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_uybuo")
