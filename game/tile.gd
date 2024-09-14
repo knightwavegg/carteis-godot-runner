@@ -1,12 +1,12 @@
 extends StaticBody2D
+class_name Obstacle
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	move_and_collide(Vector2(-1*Globals.obstacle_speed*delta, 0))
+	global_position.x -= Globals.obstacle_speed*delta
 
 
 func _on_screen_exited() -> void:
 	Globals.obstacle_dodged.emit()
-	# await timer & free
+	await get_tree().create_timer(2.0).timeout
+	queue_free()

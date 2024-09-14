@@ -1,6 +1,6 @@
 extends Node2D
 
-var tile = preload("res://tile.tscn")
+var obstacle = preload("res://obstacle.tscn")
 
 var frames_till_spawn = 30
 
@@ -19,5 +19,5 @@ func _physics_process(delta):
 
 
 func spawn():
-	var new_tile = tile.instantiate()
-	add_child.call_deferred(new_tile)
+	var new_obstacle = obstacle.instantiate()
+	add_child.call_deferred(new_obstacle)

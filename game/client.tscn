@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnfqrwrjfxpe6"]
+[gd_scene load_steps=8 format=3 uid="uid://bnfqrwrjfxpe6"]
 
-[ext_resource type="PackedScene" uid="uid://c17dt3c1nfe5v" path="res://game.tscn" id="1_p120p"]
 [ext_resource type="Script" path="res://client.gd" id="1_xlhhv"]
+[ext_resource type="Script" path="res://gameUI.gd" id="3_70d57"]
+
+[sub_resource type="Gradient" id="Gradient_wpm51"]
+colors = PackedColorArray(0.298039, 0.298039, 0.466667, 1, 0, 0.375019, 0.106821, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kkgih"]
+gradient = SubResource("Gradient_wpm51")
+
+[sub_resource type="LabelSettings" id="LabelSettings_oae37"]
+font_size = 32
+
+[sub_resource type="Gradient" id="Gradient_20h7t"]
+colors = PackedColorArray(0.298039, 0.298039, 0.466667, 1, 0.480648, 0.180422, 0.346471, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qtle6"]
+gradient = SubResource("Gradient_20h7t")
 
 [node name="client" type="Control"]
 layout_mode = 3
@@ -12,7 +27,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xlhhv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="gameHUD" type="CanvasLayer" parent="."]
+
+[node name="gameUI" type="Control" parent="gameHUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_70d57")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="gameHUD/gameUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +46,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Score" type="Label" parent="HBoxContainer"]
+[node name="Score" type="Label" parent="gameHUD/gameUI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -28,4 +54,172 @@ text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="game" parent="." instance=ExtResource("1_p120p")]
+[node name="home" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="home"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_kkgih")
+
+[node name="UI" type="VBoxContainer" parent="home"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacerTop" type="Control" parent="home/UI"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Title" type="Label" parent="home/UI"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Cartesi Runner"
+label_settings = SubResource("LabelSettings_oae37")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/UI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpacerLeft" type="Control" parent="home/UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Play" type="Button" parent="home/UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.2
+text = "Play"
+
+[node name="SpacerRight" type="Control" parent="home/UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="SpacerBottom" type="Control" parent="home/UI"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="gameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="gameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_qtle6")
+
+[node name="gameOverUI" type="VBoxContainer" parent="gameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacerTop" type="Control" parent="gameOver/gameOverUI"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Title" type="Label" parent="gameOver/gameOverUI"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Game Over"
+label_settings = SubResource("LabelSettings_oae37")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreContainer" type="HBoxContainer" parent="gameOver/gameOverUI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpacerLeft" type="Control" parent="gameOver/gameOverUI/ScoreContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="ScoreLabel" type="Label" parent="gameOver/gameOverUI/ScoreContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Score" type="Label" parent="gameOver/gameOverUI/ScoreContainer"]
+layout_mode = 2
+text = "00000"
+
+[node name="SpacerRight" type="Control" parent="gameOver/gameOverUI/ScoreContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="ButtonContainer" type="HBoxContainer" parent="gameOver/gameOverUI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpacerLeft" type="Control" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Restart" type="Button" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="SpacerMiddle" type="Control" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Submit" type="Button" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Submit Score
+"
+
+[node name="SpacerMiddle2" type="Control" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Home" type="Button" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Home"
+
+[node name="SpacerRight" type="Control" parent="gameOver/gameOverUI/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="SpacerBottom" type="Control" parent="gameOver/gameOverUI"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[connection signal="pressed" from="home/UI/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Home" to="." method="_on_home_pressed"]
