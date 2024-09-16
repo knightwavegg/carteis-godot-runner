@@ -6,6 +6,10 @@ const JUMP_VELOCITY = -800.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
+func ready():
+	Globals.reset()
+
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():

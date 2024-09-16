@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnfqrwrjfxpe6"]
+[gd_scene load_steps=9 format=3 uid="uid://bnfqrwrjfxpe6"]
 
 [ext_resource type="Script" path="res://client.gd" id="1_xlhhv"]
 [ext_resource type="Script" path="res://gameUI.gd" id="3_70d57"]
+[ext_resource type="Script" path="res://gameOverUI.gd" id="3_v76uo"]
 
 [sub_resource type="Gradient" id="Gradient_wpm51"]
 colors = PackedColorArray(0.298039, 0.298039, 0.466667, 1, 0, 0.375019, 0.106821, 1)
@@ -129,6 +130,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_v76uo")
 
 [node name="SpacerTop" type="Control" parent="gameOver/gameOverUI"]
 layout_mode = 2
@@ -220,6 +222,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
 [connection signal="pressed" from="home/UI/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="visibility_changed" from="gameOver/gameOverUI" to="gameOver/gameOverUI" method="_on_visibility_changed"]
 [connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="gameOver/gameOverUI/ButtonContainer/Home" to="." method="_on_home_pressed"]
